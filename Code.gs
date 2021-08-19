@@ -69,7 +69,13 @@ function generateDatabaseQuery() {
             break;
           case 'TEXT':
           case 'BLOB':
-            values += `'${row[col].toString().replace(/'/g, "''")}',`; // Escape apostrophe with double aprostophe
+            const data = row[col]; // Can be string or date object
+            if (data instanceof Date) {
+              values += `'${data.toISOString()}',`;
+            }
+            else {
+              values += `'${data.replace(/'/g, "''")}',`; // Escape apostrophe with double apostrophe
+            }
             break;
           case 'NULL':
           default:
