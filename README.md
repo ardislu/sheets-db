@@ -17,7 +17,7 @@ These steps only need to be completed once.
 
 ## Setting up the Google Drive file
 
-1. Upload any file to Google Drive. The content of this file will be overwritten later. Name the file something relevant, like `generateDatabaseQuery.txt`.
+1. Upload any file to Google Drive. The content of this file will be overwritten later. Name the file something relevant, like `generateDatabaseQuery.sql`.
 2. In Google Drive, right click > get link and note the file's ID (the ID should look like this: `1xUrGGbaQLVRnytUKtnINAxzild0PBeJZ`).
 
 ## Setting up the Google Sheet
