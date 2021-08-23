@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Demo frontend for a Google Sheets to SQLite converter.">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.css">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      color: hsl(0deg 0% 15%);
+      background: hsl(0deg 0% 90%);
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    label {
+      font-size: larger;
+      font-weight: bold;
+    }
+
+    caption {
+      font-size: larger;
+      font-weight: bold;
+      text-align: left;
+      margin-block-start: 1rem;
+    }
+
+    table {
+      width: 100%;
+      table-layout: fixed;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 0.5rem;
+      overflow: auto;
+    }
+
+    th {
+      background-color: hsl(216deg 100% 80%);
+      text-transform: uppercase;
+    }
+
+    tbody tr:nth-child(odd) {
+      background-color: hsl(216deg 100% 95%);
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: hsl(216deg 100% 90%);
+    }
+  </style>
+  <title>sheets-db</title>
+</head>
+
+<body>
+  <header>
+    <h1>sheets-db</h1>
+    <a href="https://github.com/ardislu/sheets-db">
+      <img src="/github.svg" width="24" height="24" alt="GitHub" />
+    </a>
+  </header>
+
+  <main>
+    <label for="editor">Enter a SQL query:</label>
+    <textarea id="editor" name="editor">SELECT state, COUNT(id), AVG(number_column_1) FROM table_1 GROUP BY state</textarea>
+    <button id="execute">Execute SQL</button>
+
+    <table id="output">
+      <caption>SQL query output:</caption>
+      <thead id="headers"></thead>
+      <tbody id="body"></tbody>
+    </table>
+  </main>
+
+  <!-- Load CodeMirror and sql.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/sql/sql.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
+
+  <script>
+    /** Helper functions to handle SQL execution and output */
+    function clearData() {
+      headersElement.innerHTML = '';
+      bodyElement.innerHTML = '';
+      outputTableElement.style.visibility = 'hidden';
+    }
+
+    function showData(data) {
+      clearData();
+      outputTableElement.style.visibility = 'visible';
+
+      // Construct header row
+      const columns = data[0].columns;
+      const headerTr = document.createElement('tr');
+      for (let header of columns) {
+        const th = document.createElement('th');
+        th.textContent = header;
+        headerTr.insertAdjacentElement('beforeend', th);
+      }
+      headersElement.insertAdjacentElement('beforeend', headerTr);
+
+      // Construct body rows
+      const values = data[0].values;
+      for (let row of values) {
+        const valuesTr = document.createElement('tr');
+        for (let value of row) {
+          const td = document.createElement('td');
+          td.textContent = value;
+          valuesTr.insertAdjacentElement('beforeend', td);
+        }
+        bodyElement.insertAdjacentElement('beforeend', valuesTr);
+      }
+    }
+
+    function executeSQL(sql) {
+      const contents = db.exec(sql);
+      showData(contents);
+    }
+
+    /** Globals related to the output table */
+    const outputTableElement = document.getElementById('output');
+    const headersElement = document.getElementById('headers');
+    const bodyElement = document.getElementById('body');
+    clearData();
+
+    /** Globals related to the SQL editor */
+    const textAreaElement = document.getElementById('editor');
+    const editor = CodeMirror.fromTextArea(textAreaElement, {
+      mode: 'sql',
+      lineNumbers: true
+    });
+    document.getElementById('execute').addEventListener('click', () => executeSQL(editor.getValue()));
+
+    /** Globals related to the initial data table */
+    const queryPromise = fetch('/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from local
+
+    /** Globals related to SQL.js */
+    const sqlPromise = initSqlJs({
+      locateFile: file => `https://sql.js.org/dist/${file}`
+    });
+    let db;
+
+    (async () => {
+      const data = await Promise.all([queryPromise, sqlPromise]);
+      const [generateDatabaseQuery, SQL] = data;
+
+      db = new SQL.Database();
+      db.run(generateDatabaseQuery);
+    })();
+  </script>
+</body>
+
+</html>
