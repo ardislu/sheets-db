@@ -1,3 +1,6 @@
+const UI = SpreadsheetApp.getUi();
+const WORKBOOK = SpreadsheetApp.getActive();
+
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('SQLite')
@@ -21,8 +24,7 @@ KEY ASSUMPTIONS:
 - All dataset values are valid
 - There are no empty rows or empty columns`;
 
-  const ui = SpreadsheetApp.getUi();
-  ui.alert('Help', helpMessage, ui.ButtonSet.OK);
+  UI.alert('Help', helpMessage, ui.ButtonSet.OK);
 }
 
 function generateDatabaseQuery() {
@@ -36,7 +38,7 @@ function generateDatabaseQuery() {
    * - There are no empty rows or empty columns
    */
 
-  const sheets = SpreadsheetApp.getActive().getSheets();
+  const sheets = WORKBOOK.getSheets();
   const fileId = '1xUrGGbaQLVRnytUKtnINAxzild0PBeJZ'; // Google Drive file ID to store the final SQL query
 
   /** Construct SQL for creating the database */
@@ -100,6 +102,5 @@ function generateDatabaseQuery() {
   // https://drive.google.com/u/0/uc?id=1xUrGGbaQLVRnytUKtnINAxzild0PBeJZ&export=download
   DriveApp.getFileById(fileId).setContent(query);
 
-  const ui = SpreadsheetApp.getUi();
-  ui.alert('Success!', `Query generated! Download here: https://drive.google.com/u/0/uc?id=${fileId}&export=download`, ui.ButtonSet.OK);
+  UI.alert('Success!', `Query generated! Download here: https://drive.google.com/u/0/uc?id=${fileId}&export=download`, ui.ButtonSet.OK);
 }
