@@ -1,9 +1,10 @@
 const UI = SpreadsheetApp.getUi();
 const WORKBOOK = SpreadsheetApp.getActive();
 
-const FILE_ID = PropertiesService.getScriptProperties().getProperty('FILE_ID');
-const BACKBLAZE_ID = PropertiesService.getScriptProperties().getProperty('BACKBLAZE_ID');
-const BACKBLAZE_KEY = PropertiesService.getScriptProperties().getProperty('BACKBLAZE_KEY');
+const PROPERTIES = PropertiesService.getScriptProperties();
+const FILE_ID = PROPERTIES.getProperty('FILE_ID');
+const BACKBLAZE_ID = PROPERTIES.getProperty('BACKBLAZE_ID');
+const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 
 function onOpen() {
   UI.createMenu('SQLite')
