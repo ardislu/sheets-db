@@ -6,8 +6,7 @@ const BACKBLAZE_ID = PropertiesService.getScriptProperties().getProperty('BACKBL
 const BACKBLAZE_KEY = PropertiesService.getScriptProperties().getProperty('BACKBLAZE_KEY');
 
 function onOpen() {
-  const ui = SpreadsheetApp.getUi();
-  ui.createMenu('SQLite')
+  UI.createMenu('SQLite')
     .addItem('Help', 'showHelp')
     .addItem('Generate SQLite database query', 'generateDatabaseQuery')
     .addItem('Upload to Backblaze', 'uploadToBackblaze')
