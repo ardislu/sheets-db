@@ -27,9 +27,17 @@ These steps only need to be completed once.
 5. Copy `Code.gs` into the GAS project and save. If you copied the demo Google Sheet, this code should already be there.
 6. **(IMPORTANT)** In `Code.gs`, there is a reference to a [Google Apps Script property](https://developers.google.com/apps-script/guides/properties) (environment variable) named `FILE_ID`. Use the GAS user interface to set `FILE_ID` to the file ID noted in Step 2.
 
+## Setting up "Upload to Backblaze"
+
+If you use Backblaze as a storage provider, you can use the "Upload to Backblaze" button to upload the SQL query directly to Backblaze.
+
+7. In [Backblaze](https://backblaze.com), create a new application key with write access to the storage bucket where you want to upload the SQL query to.
+8. Set the GAS properties `BACKBLAZE_ID` and `BACKBLAZE_KEY` to the ID and key, respectively.
+
 # Usage
 
 1. Refresh the Google Sheet to load the GAS code.
 2. See the new custom menu button `SQLite`. Press `SQLite > Help` for end-user instructions.
 3. Press `SQLite > Generate SQLite database query` to generate the database generation SQL query.
-4. In your favorite SQLite client (example: [sqliteviz](https://lana-k.github.io/sqliteviz/#/workspace)), paste in the SQL query and run it.
+4. (Optional) Press `SQLite > Upload to Backblaze` to upload the database generation SQL query to Backblaze.
+5. In your favorite SQLite client (example: [sqliteviz](https://lana-k.github.io/sqliteviz/#/workspace)), paste in the SQL query and run it.
