@@ -25,7 +25,7 @@ These steps only need to be completed once.
 3. Create a new Google Sheet or create a copy of the [demo Google Sheet](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/edit?usp=sharing).
 4. Go to Tools > Script Editor to create a new Google Apps Script (GAS) project. The GAS project is automatically attached to the Google Sheet.
 5. Copy `Code.gs` into the GAS project and save. If you copied the demo Google Sheet, this code should already be there.
-6. **(IMPORTANT)** In `Code.gs`, update the hardcoded constant `fileId` to the file ID noted in Step 2.
+6. **(IMPORTANT)** In `Code.gs`, there is a reference to a [Google Apps Script property](https://developers.google.com/apps-script/guides/properties) (environment variable) named `FILE_ID`. Use the GAS user interface to set `FILE_ID` to the file ID noted in Step 2.
 
 # Usage
 
