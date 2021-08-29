@@ -41,3 +41,9 @@ If you use Backblaze as a storage provider, you can use the "Upload to Backblaze
 3. Press `SQLite > Generate SQLite database query` to generate the database generation SQL query.
 4. (Optional) Press `SQLite > Upload to Backblaze` to upload the database generation SQL query to Backblaze.
 5. In your favorite SQLite client (example: [sqliteviz](https://lana-k.github.io/sqliteviz/#/workspace)), paste in the SQL query and run it.
+
+# Limitations
+
+Writing all the cell values in a Google Sheet as literal strings in a SQL query to generate a SQLite database is not efficient. SQLite queries have a [maximum length](https://www.sqlite.org/limits.html). The exact maximum will vary depending on the SQLite client used. 
+
+In my testing, things became unstable after the SQL query grew to over **~3 MB** in size. That was when my Google Sheet contained over 100,000 values (i.e. 10,000 rows with 10 columns each). The exact threshold will vary depending on the data in the cells. But as a general rule of thumb, this script should only be used for Google Sheets with **less than 10,000 rows**. 
