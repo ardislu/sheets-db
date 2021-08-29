@@ -4,7 +4,7 @@ Minimal Google Apps Script (GAS) project intended to quickly transform a Google 
 
 Demo here (create a copy of the Google Sheet): https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/edit?usp=sharing
 
-NOTE: you must update the hardcoded Google Drive file ID in the GAS code (see setup below), otherwise the demo will not work.
+NOTE: you must update the hardcoded Google Drive file ID in the GAS code (see "Initial Setup" steps below), otherwise the demo will not work.
 
 # Requirements
 - A Google Drive file that can be overwritten with the Google Apps Script output
