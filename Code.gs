@@ -102,8 +102,6 @@ function generateDatabaseQuery() {
     `;
   }
 
-  // URL to download the file:
-  // https://drive.google.com/u/0/uc?id=1xUrGGbaQLVRnytUKtnINAxzild0PBeJZ&export=download
   DriveApp.getFileById(FILE_ID).setContent(query);
 
   UI.alert('Success!', `Query generated! Download here: https://drive.google.com/u/0/uc?id=${FILE_ID}&export=download`, UI.ButtonSet.OK);
