@@ -139,7 +139,7 @@ function uploadToBackblaze() {
   // b2_upload_file
   const file = DriveApp.getFileById(FILE_ID);
   const fileName = file.getName();
-  const mimeType = file.getMimeType();
+  const mimeType = 'text/plain'; // Use 'text/plain' to enable compression by CDN. file.getMimeType() gives 'application/octet-stream', which will not be compressed.
   const contentLength = file.getSize();
   const data = file.getBlob();
   const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, data.getBytes());
