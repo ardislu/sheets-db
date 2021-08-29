@@ -78,7 +78,20 @@
 
   <main>
     <label for="editor">Enter a SQL query:</label>
-    <textarea id="editor" name="editor">SELECT state, COUNT(id), AVG(number_column_1) FROM table_1 GROUP BY state</textarea>
+    <textarea id="editor" name="editor">
+    SELECT
+      users.first_name
+      , users.last_name
+      , STRFTIME('%Y-%m-%d', users.birthday) AS BIRTHDAY
+      , transactions.category
+      , SUM(transactions.price) AS TOTAL
+    FROM
+      users
+      INNER JOIN transactions ON users.user_id = transactions.user_id
+    GROUP BY
+      users.user_id
+      , transactions.category
+    </textarea>
     <button id="execute">Execute SQL</button>
 
     <table id="output">
