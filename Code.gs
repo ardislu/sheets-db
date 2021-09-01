@@ -125,10 +125,10 @@ function uploadToBackblaze() {
   const getUploadUrlOptions = {
     'method': 'POST',
     'headers': {
-      'Authorization': `${authToken}`
+      'Authorization': authToken
     },
     'payload': JSON.stringify({
-      'bucketId': `${bucketId}`
+      'bucketId': bucketId
     })
   };
   const getUploadUrlResponse = UrlFetchApp.fetch(`${apiUrl}/b2api/v2/b2_get_upload_url`, getUploadUrlOptions);
@@ -162,7 +162,7 @@ function uploadToBackblaze() {
     'contentLength': contentLength,
     'payload': data
   }
-  const uploadResponse = UrlFetchApp.fetch(`${uploadUrl}`, uploadOptions);
+  const uploadResponse = UrlFetchApp.fetch(uploadUrl, uploadOptions);
 
-  UI.alert('Success!', `Google Drive file was successfully uploaded to Backblaze.`, UI.ButtonSet.OK);
+  UI.alert('Success!', 'Google Drive file was successfully uploaded to Backblaze.', UI.ButtonSet.OK);
 }
