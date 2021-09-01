@@ -172,7 +172,8 @@
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
-      locateFile: file => `https://sql.js.org/dist/${file}`
+      locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/${file}`
+      // locateFile: file => `https://sql.js.org/dist/${file}`
     });
     let db;
 
