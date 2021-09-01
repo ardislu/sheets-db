@@ -91,6 +91,9 @@
     GROUP BY
       users.user_id
       , transactions.category
+    ORDER BY
+      TOTAL DESC
+    LIMIT 25
     </textarea>
     <button id="execute">Execute SQL</button>
 
