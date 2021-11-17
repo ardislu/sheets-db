@@ -33,16 +33,6 @@ KEY ASSUMPTIONS:
 }
 
 function generateDatabaseQuery() {
-  /**
-   * KEY ASSUMPTIONS: 
-   * - Each tab in this workbook is a data table
-   * - The first row specifies the SQLite data type for the column (i.e. it is not part of the dataset)
-   * - The second row is a header row (i.e. it is not part of the dataset)
-   * - Every other row is part of the dataset
-   * - All dataset values are valid
-   * - There are no empty rows or empty columns
-   */
-
   const sheets = WORKBOOK.getSheets();
 
   /** Construct SQL for creating the database */
