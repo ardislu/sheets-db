@@ -166,14 +166,11 @@
     /** Globals related to the initial data table */
     const databasePromise = fetch('https://sheets-db-sql.ardis.lu/file/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from CDN mapped to Backblaze
     // const databasePromise = fetch('https://f002.backblazeb2.com/file/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from Backblaze origin
-    // const databasePromise = fetch('http://sheets-db-sql.ardis.lu/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from CDN mapped to Google Storage
-    // const databasePromise = fetch('https://storage.googleapis.com/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from Google Storage origin
     // const databasePromise = fetch('/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from local
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
       locateFile: file => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/${file}`
-      // locateFile: file => `https://sql.js.org/dist/${file}`
     });
     let db;
 
