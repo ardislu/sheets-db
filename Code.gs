@@ -9,7 +9,7 @@ const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 function onOpen() {
   UI.createMenu('SQLite')
     .addItem('Help', 'showHelp')
-    .addItem('Generate SQLite database query', 'generateDatabaseQuery')
+    .addItem('Download SQLite database', 'showDatabaseDownloadDialog')
     .addItem('Upload to Backblaze', 'uploadToBackblaze')
     .addToUi();
 }
@@ -19,7 +19,7 @@ function showHelp() {
 
 USAGE:
 - Edit the data on this workbook like you would on any other Google Sheet, noting KEY ASSUMPTIONS below.
-- When ready, press the "Generate SQLite database query" button to generate a SQL query which can be used to write a SQLite database containing this workbook's data!
+- When ready, press the "Download SQLite database" button to generate and download a SQLite database from the workbook's data!
 
 KEY ASSUMPTIONS: 
 - Each tab in this workbook is a data table
@@ -32,6 +32,7 @@ KEY ASSUMPTIONS:
   UI.alert('Help', helpMessage, UI.ButtonSet.OK);
 }
 
+// Helper function which will be called from the client-side dialog
 function generateDatabaseQuery() {
   const sheets = WORKBOOK.getSheets();
 
@@ -92,9 +93,12 @@ function generateDatabaseQuery() {
     `;
   }
 
-  DriveApp.getFileById(FILE_ID).setContent(query);
+  return query;
+}
 
-  UI.alert('Success!', `Query generated! Download here: https://drive.google.com/u/0/uc?id=${FILE_ID}&export=download`, UI.ButtonSet.OK);
+function showDatabaseDownloadDialog() {
+  const html = HtmlService.createHtmlOutputFromFile('query-to-db');
+  UI.showModalDialog(html, 'Generating database...');
 }
 
 function uploadToBackblaze() {

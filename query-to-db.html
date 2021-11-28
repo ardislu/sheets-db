@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <base target="_top">
+</head>
+
+<body>
+  <a>Generating database...</a>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
+  <script>
+    (async () => {
+      // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
+      const SQL = await initSqlJs({ locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/' + file });
+      db = new SQL.Database();
+
+      const handler = query => {
+        db.run(query);
+        const buffer = db.export();
+        const file = new Blob([buffer], { type: 'application/vnd.sqlite3' });
+
+        const a = document.querySelector('a');
+        a.setAttribute('download', `${Date.now()}.sqlite3`);
+        a.setAttribute('href', `${URL.createObjectURL(file)}`);
+        a.textContent = 'Download ready! Click here to download the .sqlite3 database.';
+      }
+
+      google.script.run.withSuccessHandler(handler).generateDatabaseQuery();
+    })();
+  </script>
+</body>
+
+</html>
