@@ -7,8 +7,8 @@ const BACKBLAZE_ID = PROPERTIES.getProperty('BACKBLAZE_ID');
 const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 
 function onOpen() {
-  UI.createMenu('SQLite')
-    .addItem('Help', 'showHelp')
+  UI.createMenu('🔥 SQLite')
+    .addItem('❓ Help', 'showHelp')
     .addItem('Download SQLite database', 'showDatabaseDownloadDialog')
     .addItem('Upload to Backblaze', 'uploadToBackblaze')
     .addToUi();
