@@ -3,30 +3,94 @@
 
 <head>
   <base target="_top">
+  <style type="text/css">
+    body {
+      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
+        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    }
+
+    a {
+      display: block;
+      margin-block: 1rem;
+    }
+
+    .inline-spinner {
+      display: inline-block;
+      box-sizing: border-box;
+      height: 1em;
+      width: 1em;
+      border: 0.25em solid transparent;
+      border-top: 0.25em solid black;
+      border-radius: 50%;
+      margin-inline: 1em;
+      animation: 1s infinite spin;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <a>Generating database...</a>
+  <p id="status">Initializing database...</p>
+
+  <button id="generate-button" disabled>Generate SQLite database</button>
+  <span id="generate-spinner" class="inline-spinner"></span>
+  <a id="download-link"></a>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
   <script>
-    (async () => {
-      // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
-      const SQL = await initSqlJs({ locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/' + file });
+    let SQL;
+    let db;
+    const status = document.getElementById('status');
+    const generateButton = document.getElementById('generate-button');
+    const generateSpinner = document.getElementById('generate-spinner');
+    generateSpinner.style.display = 'none';
+    const downloadLink = document.getElementById('download-link');
+
+    const generateHandler = () => {
+      status.textContent = 'Generating database...';
+      generateButton.disabled = true;
+      generateSpinner.style.display = '';
+      downloadLink.textContent = '';
+
+      db.close(); // Must be called to free memory from previous databases
       db = new SQL.Database();
 
-      const handler = query => {
+      const queryHandler = query => {
         db.run(query);
         const buffer = db.export();
         const file = new Blob([buffer], { type: 'application/vnd.sqlite3' });
 
-        const a = document.querySelector('a');
-        a.setAttribute('download', `${Date.now()}.sqlite3`);
-        a.setAttribute('href', `${URL.createObjectURL(file)}`);
-        a.textContent = 'Download ready! Click here to download the .sqlite3 database.';
+        downloadLink.setAttribute('download', `${Date.now()}.sqlite3`);
+        downloadLink.setAttribute('href', `${URL.createObjectURL(file)}`);
+        downloadLink.textContent = 'Click here to download the .sqlite3 database.';
+
+        status.textContent = `Last database generation: ${(new Date()).toLocaleString()}`;
+        generateButton.disabled = false;
+        generateSpinner.style.display = 'none';
       }
 
-      google.script.run.withSuccessHandler(handler).generateDatabaseQuery();
+      google.script.run.withSuccessHandler(queryHandler).generateDatabaseQuery();
+    }
+
+    generateButton.addEventListener('click', generateHandler);
+
+    (async () => {
+      // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
+      SQL = await initSqlJs({ locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/' + file });
+      db = new SQL.Database();
+
+      status.textContent = 'SQLite loaded. Ready to generate database!';
+      generateButton.disabled = false;
     })();
   </script>
 </body>
