@@ -9,7 +9,7 @@ const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 function onOpen() {
   UI.createMenu('🔥 SQLite')
     .addItem('❓ Help', 'showHelp')
-    .addItem('Download SQLite database', 'showDatabaseDownloadDialog')
+    .addItem('🟢 Open sidebar', 'openSidebar')
     .addItem('Upload to Backblaze', 'uploadToBackblaze')
     .addToUi();
 }
@@ -19,7 +19,7 @@ function showHelp() {
 
 USAGE:
 - Edit the data on this workbook like you would on any other Google Sheet, noting KEY ASSUMPTIONS below.
-- When ready, press the "Download SQLite database" button to generate and download a SQLite database from the workbook's data!
+- When ready, press the "Open sidebar" button to generate a SQLite database from the data on this workbook!
 
 KEY ASSUMPTIONS: 
 - Each tab in this workbook is a data table
@@ -30,6 +30,11 @@ KEY ASSUMPTIONS:
 - There are no empty rows or empty columns`;
 
   UI.alert('Help', helpMessage, UI.ButtonSet.OK);
+}
+
+function openSidebar() {
+  const html = HtmlService.createHtmlOutputFromFile('query-to-db').setTitle('🔥 SQLite');
+  UI.showSidebar(html);
 }
 
 // Helper function which will be called from the client-side dialog
@@ -94,11 +99,6 @@ function generateDatabaseQuery() {
   }
 
   return query;
-}
-
-function showDatabaseDownloadDialog() {
-  const html = HtmlService.createHtmlOutputFromFile('query-to-db');
-  UI.showModalDialog(html, 'Generating database...');
 }
 
 function uploadToBackblaze() {
