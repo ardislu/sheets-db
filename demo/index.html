@@ -164,11 +164,11 @@
     document.getElementById('execute').addEventListener('click', () => executeSQL(editor.getValue()));
 
     /** Globals related to the initial data table */
-    const queryPromise = fetch('https://sheets-db-sql.ardis.lu/file/sheets-db/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from CDN mapped to Backblaze
-    // const queryPromise = fetch('https://f002.backblazeb2.com/file/sheets-db/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from Backblaze origin
-    // const queryPromise = fetch('http://sheets-db-sql.ardis.lu/sheets-db/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from CDN mapped to Google Storage
-    // const queryPromise = fetch('https://storage.googleapis.com/sheets-db/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from Google Storage origin
-    // const queryPromise = fetch('/generateDatabaseQuery.sql').then(response => response.text()); // Fetch from local
+    const databasePromise = fetch('https://sheets-db-sql.ardis.lu/file/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from CDN mapped to Backblaze
+    // const databasePromise = fetch('https://f002.backblazeb2.com/file/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from Backblaze origin
+    // const databasePromise = fetch('http://sheets-db-sql.ardis.lu/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from CDN mapped to Google Storage
+    // const databasePromise = fetch('https://storage.googleapis.com/sheets-db/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from Google Storage origin
+    // const databasePromise = fetch('/database.sqlite3').then(response => response.arrayBuffer()); // Fetch from local
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
@@ -178,11 +178,10 @@
     let db;
 
     (async () => {
-      const data = await Promise.all([queryPromise, sqlPromise]);
-      const [generateDatabaseQuery, SQL] = data;
+      const data = await Promise.all([databasePromise, sqlPromise]);
+      const [database, SQL] = data;
 
-      db = new SQL.Database();
-      db.run(generateDatabaseQuery);
+      db = new SQL.Database(new Uint8Array(database));
     })();
   </script>
 </body>
