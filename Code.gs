@@ -7,7 +7,7 @@ const BACKBLAZE_ID = PROPERTIES.getProperty('BACKBLAZE_ID');
 const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 
 function onOpen() {
-  UI.createMenu('🔥 SQLite')
+  UI.createMenu('🔥 sheets-db')
     .addItem('❓ Help', 'showHelp')
     .addItem('🟢 Open sidebar', 'openSidebar')
     .addItem('Upload to Backblaze', 'uploadToBackblaze')
@@ -33,7 +33,7 @@ KEY ASSUMPTIONS:
 }
 
 function openSidebar() {
-  const html = HtmlService.createHtmlOutputFromFile('query-to-db').setTitle('🔥 SQLite');
+  const html = HtmlService.createHtmlOutputFromFile('query-to-db').setTitle('🔥 sheets-db');
   UI.showSidebar(html);
 }
 
