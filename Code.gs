@@ -99,6 +99,14 @@ function generateDatabaseQuery() {
   return query;
 }
 
+// Helper function to determine if the upload button should be shown on the sidebar
+function backblazeCredentialsExist() {
+  return {
+    'BACKBLAZE_ID': BACKBLAZE_ID ? true : false,
+    'BACKBLAZE_KEY': BACKBLAZE_KEY ? true : false
+  }
+}
+
 // Helper function which will be called from the client-side dialog
 function uploadToBackblaze(byteArray) {
   // b2_authorize_account

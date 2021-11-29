@@ -47,7 +47,7 @@
   <p id="generate-notification"></p>
   <a id="download-link"></a>
 
-  <button id="upload-button" disabled>Upload .sqlite3 file to Backblaze</button>
+  <button id="upload-button" disabled style="display: none;">Upload .sqlite3 file to Backblaze</button>
   <span id="upload-spinner" class="inline-spinner"></span>
   <p id="upload-notification"></p>
 
@@ -93,6 +93,13 @@
     }
 
     setState('initial');
+
+    // Only show the upload button if both GAS properties are set
+    google.script.run.withSuccessHandler(exists => {
+      if (exists.BACKBLAZE_ID && exists.BACKBLAZE_KEY) {
+        uploadButton.style.display = '';
+      }
+    }).backblazeCredentialsExist();
 
     // Call the server-side generateDatabaseQuery, then create the SQLite database
     generateButton.addEventListener('click', () => {
