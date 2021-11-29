@@ -40,57 +40,97 @@
 </head>
 
 <body>
-  <p id="status">Initializing database...</p>
+  <p id="status"></p>
 
   <button id="generate-button" disabled>Generate SQLite database</button>
   <span id="generate-spinner" class="inline-spinner"></span>
+  <p id="generate-notification"></p>
   <a id="download-link"></a>
+
+  <button id="upload-button" disabled>Upload .sqlite3 file to Backblaze</button>
+  <span id="upload-spinner" class="inline-spinner"></span>
+  <p id="upload-notification"></p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
   <script>
-    let SQL;
-    let db;
+    // Globals for SQLite which will be overwritten later
+    let SQL; // the sql.js instance
+    let db; // the currently active SQLite database
+    let file; // the exported .sqlite3 database file
+
+    // Globals mapping to each element
     const status = document.getElementById('status');
+
     const generateButton = document.getElementById('generate-button');
     const generateSpinner = document.getElementById('generate-spinner');
-    generateSpinner.style.display = 'none';
+    const generateNotification = document.getElementById('generate-notification');
     const downloadLink = document.getElementById('download-link');
 
-    const generateHandler = () => {
-      status.textContent = 'Generating database...';
-      generateButton.disabled = true;
-      generateSpinner.style.display = '';
-      downloadLink.textContent = '';
+    const uploadButton = document.getElementById('upload-button');
+    const uploadSpinner = document.getElementById('upload-spinner');
+    const uploadNotification = document.getElementById('upload-notification');
+
+    const setState = state => {
+      const mapping = {
+        'initial': ['Initializing database...', true, 'none', '', '', true, 'none', ''],
+        'loaded': ['SQLite loaded. Ready to generate database!', false, 'none', '', '', true, 'none', ''],
+        'generatingDatabase': ['Generating database...', true, '', '', '', true, 'none', uploadNotification.textContent],
+        'downloadReady': ['Ready!', false, 'none', `Database generated: ${(new Date()).toLocaleString()}`, 'Click here to download the .sqlite3 database.', false, 'none', uploadNotification.textContent],
+        'uploadingDatabase': ['Uploading .sqlite3 file to Backblaze...', true, 'none', generateNotification.textContent, downloadLink.textContent, true, '', uploadNotification.textContent],
+        'uploadComplete': ['Ready!', false, 'none', generateNotification.textContent, downloadLink.textContent, false, 'none', `Uploaded to Backblaze: ${(new Date()).toLocaleString()}`]
+      };
+
+      const content = mapping[state];
+
+      status.textContent = content[0];
+      generateButton.disabled = content[1];
+      generateSpinner.style.display = content[2];
+      generateNotification.textContent = content[3];
+      downloadLink.textContent = content[4];
+      uploadButton.disabled = content[5];
+      uploadSpinner.style.display = content[6];
+      uploadNotification.textContent = content[7];
+    }
+
+    setState('initial');
+
+    // Call the server-side generateDatabaseQuery, then create the SQLite database
+    generateButton.addEventListener('click', () => {
+      setState('generatingDatabase');
 
       db.close(); // Must be called to free memory from previous databases
       db = new SQL.Database();
 
-      const queryHandler = query => {
+      google.script.run.withSuccessHandler(query => {
         db.run(query);
         const buffer = db.export();
-        const file = new Blob([buffer], { type: 'application/vnd.sqlite3' });
+        file = new File([buffer], 'database.sqlite3', { type: 'application/vnd.sqlite3' });
 
         downloadLink.setAttribute('download', `${Date.now()}.sqlite3`);
         downloadLink.setAttribute('href', `${URL.createObjectURL(file)}`);
-        downloadLink.textContent = 'Click here to download the .sqlite3 database.';
+        setState('downloadReady');
+      }).generateDatabaseQuery();
+    });
 
-        status.textContent = `Last database generation: ${(new Date()).toLocaleString()}`;
-        generateButton.disabled = false;
-        generateSpinner.style.display = 'none';
-      }
+    // Convert the SQLite database into a byte array, then send it to the server-side uploadToBackblaze
+    uploadButton.addEventListener('click', async () => {
+      setState('uploadingDatabase');
 
-      google.script.run.withSuccessHandler(queryHandler).generateDatabaseQuery();
-    }
+      const buffer = await file.arrayBuffer();
+      const byteArray = [...new Uint8Array(buffer)]; // Need to spread into a non-typed array to pass to server-side
 
-    generateButton.addEventListener('click', generateHandler);
+      google.script.run.withSuccessHandler(() => {
+        setState('uploadComplete');
+      }).uploadToBackblaze(byteArray);
+    });
 
+    // Initialize sql.js
     (async () => {
       // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
       SQL = await initSqlJs({ locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/' + file });
       db = new SQL.Database();
 
-      status.textContent = 'SQLite loaded. Ready to generate database!';
-      generateButton.disabled = false;
+      setState('loaded');
     })();
   </script>
 </body>

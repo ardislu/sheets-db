@@ -2,7 +2,6 @@ const UI = SpreadsheetApp.getUi();
 const WORKBOOK = SpreadsheetApp.getActive();
 
 const PROPERTIES = PropertiesService.getScriptProperties();
-const FILE_ID = PROPERTIES.getProperty('FILE_ID');
 const BACKBLAZE_ID = PROPERTIES.getProperty('BACKBLAZE_ID');
 const BACKBLAZE_KEY = PROPERTIES.getProperty('BACKBLAZE_KEY');
 
@@ -10,7 +9,6 @@ function onOpen() {
   UI.createMenu('🔥 sheets-db')
     .addItem('❓ Help', 'showHelp')
     .addItem('🟢 Open sidebar', 'openSidebar')
-    .addItem('Upload to Backblaze', 'uploadToBackblaze')
     .addToUi();
 }
 
@@ -101,7 +99,8 @@ function generateDatabaseQuery() {
   return query;
 }
 
-function uploadToBackblaze() {
+// Helper function which will be called from the client-side dialog
+function uploadToBackblaze(byteArray) {
   // b2_authorize_account
   const credentials = `Basic ${Utilities.base64Encode(`${BACKBLAZE_ID}:${BACKBLAZE_KEY}`)}`;
   const authOptions = {
@@ -131,12 +130,9 @@ function uploadToBackblaze() {
   const uploadUrl = getUploadUrlJson['uploadUrl'];
 
   // b2_upload_file
-  const file = DriveApp.getFileById(FILE_ID);
-  const fileName = file.getName();
-  const mimeType = 'text/plain'; // Use 'text/plain' to enable compression by CDN. file.getMimeType() gives 'application/octet-stream', which will not be compressed.
-  const contentLength = file.getSize();
-  const data = file.getBlob();
-  const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, data.getBytes());
+  const file = Utilities.newBlob(byteArray, 'application/vnd.sqlite3', 'database.sqlite3');
+  const fileSize = byteArray.length;
+  const digest = Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_1, file.getBytes());
   let sha1 = '';
   for (let byte of digest) {
     if (byte < 0) {
@@ -149,14 +145,12 @@ function uploadToBackblaze() {
     'method': 'POST',
     'headers': {
       'Authorization': authToken,
-      'X-Bz-File-Name': fileName,
-      'Content-Type': mimeType,
+      'X-Bz-File-Name': file.getName(),
+      'Content-Type': file.getContentType(),
       'X-Bz-Content-Sha1': sha1
     },
-    'contentLength': contentLength,
-    'payload': data
+    'contentLength': fileSize,
+    'payload': file
   }
   const uploadResponse = UrlFetchApp.fetch(uploadUrl, uploadOptions);
-
-  UI.alert('Success!', 'Google Drive file was successfully uploaded to Backblaze.', UI.ButtonSet.OK);
 }
