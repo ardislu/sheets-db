@@ -1,3 +1,9 @@
+/**
+ * @OnlyCurrentDoc
+ *
+ * Reference: https://developers.google.com/apps-script/guides/services/authorization
+ */
+
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
 
