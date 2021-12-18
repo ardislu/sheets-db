@@ -110,10 +110,10 @@
       google.script.run.withSuccessHandler(query => {
         db.run(query);
         const buffer = db.export();
-        file = new File([buffer], 'database.sqlite3', { type: 'application/vnd.sqlite3' });
+        file = new File([buffer], `${Date.now()}.sqlite3`, { type: 'application/vnd.sqlite3' });
 
         downloadLink.href = URL.createObjectURL(file);
-        downloadLink.download = `${Date.now()}.sqlite3`;
+        downloadLink.download = file.name;
         setState('downloadReady');
       }).generateDatabaseQuery();
     });
