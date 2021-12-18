@@ -3,16 +3,15 @@
 
 <head>
   <base target="_top">
+  <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
   <style type="text/css">
     body {
-      font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", Helvetica, Arial,
-        sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+      margin-inline: 13px;
     }
 
     a {
       display: block;
-      margin-block: 1rem;
+      margin-block: 1em;
     }
 
     .inline-spinner {
@@ -42,14 +41,14 @@
 <body>
   <p id="status"></p>
 
-  <button id="generate-button" disabled>Generate SQLite database</button>
+  <button id="generate-button" class="action" disabled>Generate SQLite database</button>
   <span id="generate-spinner" class="inline-spinner"></span>
-  <p id="generate-notification"></p>
+  <p id="generate-notification" class="secondary"></p>
   <a id="download-link"></a>
 
-  <button id="upload-button" disabled style="display: none;">Upload .sqlite3 file to Backblaze</button>
+  <button id="upload-button" class="action" disabled style="display: none;">Upload .sqlite3 file to Backblaze</button>
   <span id="upload-spinner" class="inline-spinner"></span>
-  <p id="upload-notification"></p>
+  <p id="upload-notification" class="secondary"></p>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
   <script>
