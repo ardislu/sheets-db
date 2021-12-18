@@ -35,6 +35,6 @@ This setup is **NOT** necessary if you only want to generate SQLite databases.
 
 1. Refresh the Google Sheet and wait for the GAS code to finish loading.
 2. See the new custom menu button `🔥 sheets-db`. Press `🔥 sheets-db > ❓ Help` for end-user instructions.
-3. Press `🔥 sheets-db > 🟢 Open sidebar` to initialize the SQLite sidebar.
+3. Press `🔥 sheets-db > 🟢 Start` to initialize the SQLite sidebar.
 4. Click the buttons on the sidebar to generate the SQLite database and/or upload the file to Backblaze.
 5. Upload the .sqlite3 file to your favorite SQLite client (example: [sqliteviz](https://lana-k.github.io/sqliteviz/#/workspace)), to run queries on the database.
