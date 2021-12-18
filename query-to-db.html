@@ -112,8 +112,8 @@
         const buffer = db.export();
         file = new File([buffer], 'database.sqlite3', { type: 'application/vnd.sqlite3' });
 
-        downloadLink.setAttribute('download', `${Date.now()}.sqlite3`);
-        downloadLink.setAttribute('href', `${URL.createObjectURL(file)}`);
+        downloadLink.href = URL.createObjectURL(file);
+        downloadLink.download = `${Date.now()}.sqlite3`;
         setState('downloadReady');
       }).generateDatabaseQuery();
     });
