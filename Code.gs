@@ -18,17 +18,17 @@ function showHelp() {
 
   const helpMessage = `Welcome to sheets-db!
 
-USAGE:
-- Edit the data on this workbook like you would on any other Google Sheet, noting KEY ASSUMPTIONS below.
-- When ready, press the "🟢 Start" button to generate a SQLite database from the data on this workbook!
+  USAGE:
+  - Edit the data on this workbook like you would on any other Google Sheet, noting KEY ASSUMPTIONS below.
+  - When ready, press the "🟢 Start" button to generate a SQLite database from the data on this workbook!
 
-KEY ASSUMPTIONS: 
-- Each tab in this workbook is a data table
-- The first row specifies the SQLite data type for the column (i.e. it is not part of the dataset)
-- The second row is a header row (i.e. it is not part of the dataset)
-- Every other row is part of the dataset
-- All dataset values are valid
-- There are no empty rows or empty columns`;
+  KEY ASSUMPTIONS: 
+  - Each tab in this workbook is a data table
+  - The first row specifies the SQLite data type for the column (i.e. it is not part of the dataset)
+  - The second row is a header row (i.e. it is not part of the dataset)
+  - Every other row is part of the dataset
+  - All dataset values are valid
+  - There are no empty rows or empty columns`;
 
   ui.alert('Help', helpMessage, ui.ButtonSet.OK);
 }
