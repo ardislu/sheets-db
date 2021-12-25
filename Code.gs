@@ -77,7 +77,7 @@ function generateDatabaseQuery() {
               values += `'${data.toISOString()}',`;
             }
             else {
-              values += `'${data.replace(/'/g, "''")}',`; // Escape apostrophe with double apostrophe
+              values += `'${data.replaceAll(/'/g, "''")}',`; // Escape apostrophe with double apostrophe
             }
             break;
           case 'NULL':
