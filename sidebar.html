@@ -5,6 +5,10 @@
   <base target="_top">
   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
   <style>
+    body {
+      height: 100%;
+    }
+
     a {
       display: block;
       margin-block: 1em;
@@ -41,6 +45,8 @@
   <button id="upload-button" class="action" disabled style="display: none;">Upload .sqlite3 file to Backblaze</button>
   <span id="upload-spinner" class="inline-spinner"></span>
   <p id="upload-notification" class="secondary"></p>
+
+  <p class="bottom gray">https://github.com/ardislu/sheets-db</p>
 
   <script src="https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/sql-wasm.min.js"></script>
   <script>
