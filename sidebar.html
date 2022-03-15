@@ -69,7 +69,7 @@
     const uploadSpinner = document.getElementById('upload-spinner');
     const uploadNotification = document.getElementById('upload-notification');
 
-    const setState = state => {
+    function setState(state) {
       const mapping = {
         'initial': ['Initializing database...', true, 'none', '', '', true, 'none', ''],
         'loaded': ['SQLite loaded. Ready to generate database!', false, 'none', '', '', true, 'none', ''],
