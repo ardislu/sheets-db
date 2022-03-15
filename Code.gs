@@ -35,7 +35,7 @@ function showHelp() {
 
 function showSidebar() {
   const ui = SpreadsheetApp.getUi();
-  const html = HtmlService.createHtmlOutputFromFile('query-to-db').setTitle('🔥 sheets-db');
+  const html = HtmlService.createHtmlOutputFromFile('sidebar').setTitle('🔥 sheets-db');
   ui.showSidebar(html);
 }
 

@@ -15,7 +15,7 @@ These steps only need to be completed once.
 
 1. Create a new Google Sheet or create a copy of the [demo Google Sheet](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/edit?usp=sharing).
 2. Go to `Extensions > Apps Script` to create a new Google Apps Script (GAS) project. The GAS project is automatically attached to the Google Sheet.
-3. Copy `Code.gs` and `query-to-db.html` into the GAS project and save. If you copied the demo Google Sheet, this code should already be there.
+3. Copy `Code.gs` and `sidebar.html` into the GAS project and save. If you copied the demo Google Sheet, this code should already be there.
 
 ## (OPTIONAL) Setting up "Upload .sqlite3 file to Backblaze"
 
