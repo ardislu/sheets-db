@@ -50,7 +50,7 @@
   <span id="upload-spinner" class="inline-spinner"></span>
   <p id="upload-notification" class="secondary"></p>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/sql-wasm.min.js"></script>
   <script>
     // Globals for SQLite which will be overwritten later
     let SQL; // the sql.js instance
@@ -133,7 +133,7 @@
     // Initialize sql.js
     (async () => {
       // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
-      SQL = await initSqlJs({ locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.1/' + file });
+      SQL = await initSqlJs({ locateFile: file => 'https://cdn.jsdelivr.net/npm/sql.js@1.6.2/dist/' + file });
       db = new SQL.Database();
 
       setState('loaded');
