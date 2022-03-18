@@ -64,6 +64,23 @@
     tbody tr:nth-child(even) {
       background-color: hsl(216deg 100% 90%);
     }
+
+    @keyframes spin {
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    #spinner {
+      display: inline-block;
+      box-sizing: border-box;
+      block-size: 1em;
+      inline-size: 1em;
+      border: 0.25em solid transparent;
+      border-block-start: 0.25em solid black;
+      border-radius: 50%;
+      animation: spin 1s infinite;
+    }
   </style>
   <title>sheets-db</title>
 </head>
@@ -98,7 +115,8 @@ ORDER BY
   TOTAL DESC
 LIMIT 25
     </textarea>
-    <button id="execute">Execute SQL</button>
+    <button id="execute" disabled>Execute SQL</button>
+    <span id="spinner"></span>
 
     <table id="output">
       <caption>SQL query output:</caption>
@@ -182,6 +200,9 @@ LIMIT 25
       const [database, SQL] = data;
 
       db = new SQL.Database(new Uint8Array(database));
+
+      document.getElementById('execute').disabled = false;
+      document.getElementById('spinner').remove();
     })();
   </script>
 </body>
