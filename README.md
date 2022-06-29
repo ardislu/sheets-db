@@ -2,7 +2,7 @@
 
 Minimal [Google Apps Script (GAS)](https://developers.google.com/apps-script) project intended to quickly transform a Google Sheet into a SQLite database.
 
-Demo here (create a copy of the Google Sheet): https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/edit?usp=sharing
+[Click here to create a copy of the demo Google Sheet (the required GAS code will also be copied)](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/copy).
 
 # Requirements
 - A Google Sheet to attach this Google Apps Script project to
@@ -13,7 +13,7 @@ These steps only need to be completed once.
 
 ## Setting up the Google Sheet
 
-1. Create a new Google Sheet or create a copy of the [demo Google Sheet](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/edit?usp=sharing).
+1. Create a new Google Sheet or create a copy of the [demo Google Sheet](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/copy).
 2. Go to `Extensions > Apps Script` to create a new Google Apps Script (GAS) project. The GAS project is automatically attached to the Google Sheet.
 3. Copy `Code.gs` and `sidebar.html` into the GAS project and save. If you copied the demo Google Sheet, this code should already be there.
 
