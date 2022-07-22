@@ -25,11 +25,9 @@ This setup is **NOT** necessary if you only want to generate SQLite databases.
 
 4. In Backblaze, create a new application key with write access to the storage bucket where you want to upload the file to.
 5. Note the `keyID` and `applicationKey` shown.
-6. In the GAS editor, create the following [Google Apps Script properties](https://developers.google.com/apps-script/guides/properties) (environment variables):
+6. In the GAS editor, create the following [Google Apps Script properties](https://developers.google.com/apps-script/guides/properties) (environment variables) under `Project Settings > Script Properties`:
 - `BACKBLAZE_ID` - the Backblaze application key ID (`keyId`) from step 5.
 - `BACKBLAZE_KEY` - the Backblaze application key (`applicationKey`) from step 5.
-
-**NOTE**: if you can't find where to create GAS properties, switch to the legacy UI (Click `Use legacy editor` on the top right side of the UI) and go to `File > Project properties > Script properties`.
 
 # Usage
 
