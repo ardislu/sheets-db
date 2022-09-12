@@ -128,7 +128,7 @@ LIMIT 25
   <!-- Load CodeMirror and sql.js -->
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.6/lib/codemirror.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.6/mode/sql/sql.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.7.0/dist/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-wasm.min.js"></script>
 
   <script>
     /** Helper functions to handle SQL execution and output */
@@ -191,7 +191,7 @@ LIMIT 25
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
-      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.7.0/dist/${file}`
+      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/${file}`
     });
     let db;
 

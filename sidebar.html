@@ -48,7 +48,7 @@
 
   <p class="bottom gray">https://github.com/ardislu/sheets-db</p>
 
-  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.7.0/dist/sql-wasm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/sql-wasm.min.js"></script>
   <script>
     // Globals for SQLite which will be overwritten later
     let SQL; // the sql.js instance
@@ -131,7 +131,7 @@
     // Initialize sql.js
     (async () => {
       // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
-      SQL = await initSqlJs({ locateFile: file => 'https://cdn.jsdelivr.net/npm/sql.js@1.7.0/dist/' + file });
+      SQL = await initSqlJs({ locateFile: file => 'https://cdn.jsdelivr.net/npm/sql.js@1.8.0/dist/' + file });
       db = new SQL.Database();
 
       setState('loaded');
