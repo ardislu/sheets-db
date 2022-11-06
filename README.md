@@ -1,5 +1,7 @@
 # sheets-db
 
+![sheets-db logo](/logo.webp)
+
 Minimal [Google Apps Script (GAS)](https://developers.google.com/apps-script) project intended to quickly transform a Google Sheet into a SQLite database.
 
 [Click here to create a copy of the demo Google Sheet (the required GAS code will also be copied)](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/copy).
