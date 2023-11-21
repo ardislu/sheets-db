@@ -123,6 +123,25 @@
       border-radius: 8px;
     }
 
+    .CodeMirror::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: 0 0 4px hsl(216deg 50% 50%);
+      filter: drop-shadow(0 0 4px hsl(216deg 50% 50%));
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 400ms;
+    }
+
+    :is(.CodeMirror:hover, .CodeMirror:focus-within)::after {
+      opacity: 1;
+      transition: opacity 200ms;
+    }
+
     .sr-only {
       position: absolute;
       width: 1px;
