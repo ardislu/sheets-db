@@ -245,6 +245,7 @@ LIMIT 25</textarea>
       const headerTr = document.createElement('tr');
       for (let header of columns) {
         const th = document.createElement('th');
+        th.setAttribute('scope', 'col');
         th.textContent = header;
         headerTr.insertAdjacentElement('beforeend', th);
       }
