@@ -193,9 +193,9 @@
 SELECT
   users.first_name
   , users.last_name
-  , STRFTIME('%Y-%m-%d', users.birthday) AS BIRTHDAY
+  , STRFTIME('%Y-%m-%d', users.birthday) AS birthday
   , transactions.category
-  , SUM(transactions.price) AS TOTAL
+  , SUM(transactions.price) AS total
 FROM
   users
   INNER JOIN transactions ON users.user_id = transactions.user_id
