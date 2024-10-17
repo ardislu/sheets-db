@@ -10,9 +10,9 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sheets-db.ardis.lu/">
   <link rel="icon" href="data:,">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css">
   <link rel="preload" href="https://sheets-db-sql.ardis.lu/file/sheets-db/database.sqlite3" as="fetch" crossorigin>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.wasm" as="fetch" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.11.0/dist/sql-wasm.wasm" as="fetch" crossorigin>
   <style>
     body {
       font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -229,9 +229,9 @@ LIMIT 25</textarea>
   </main>
 
   <!-- Load CodeMirror and sql.js -->
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/lib/codemirror.min.js" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.16/mode/sql/sql.min.js" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js" integrity="sha512-+6Q7hv5pGUBXOuHWw8OdQx3ac7DzM3oJhYqz7SHDku0yl9EBdMqegoPed4GsHRoNF/VQYK2LTYewAIEBrEf/3w==" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/sql/sql.min.js" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.11.0/dist/sql-wasm.js" integrity="sha512-tz0jOZaOg9RtWWB6AdxSkINQwIs7S5obj1Dlml9KewZLPTblTWCux5eLtnexBb8kbLUo5crPmjsi8/vI17Vw0w==" crossorigin></script>
 
   <script>
     /** Helper functions to handle SQL execution and output */
@@ -295,7 +295,7 @@ LIMIT 25</textarea>
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
-      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/${file}`
+      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.11.0/dist/${file}`
     });
     let db;
 
