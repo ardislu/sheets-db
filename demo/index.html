@@ -12,7 +12,7 @@
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.css">
   <link rel="preload" href="https://sheets-db-sql.ardis.lu/file/sheets-db/database.sqlite3" as="fetch" crossorigin>
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/sql-wasm.wasm" as="fetch" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/sql-wasm.wasm" as="fetch" crossorigin>
   <style>
     body {
       font-family: system-ui, sans-serif;
@@ -229,7 +229,7 @@ LIMIT 25</textarea>
   <!-- Load CodeMirror and sql.js -->
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/lib/codemirror.min.js" crossorigin></script>
   <script src="https://cdn.jsdelivr.net/npm/codemirror@5.65.18/mode/sql/sql.min.js" crossorigin></script>
-  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/sql-wasm.js" integrity="sha512-tz0jOZaOg9RtWWB6AdxSkINQwIs7S5obj1Dlml9KewZLPTblTWCux5eLtnexBb8kbLUo5crPmjsi8/vI17Vw0w==" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/sql-wasm.js" integrity="sha512-Yra4xuTWinXfBpG2ftgDX8MVmMiOev1FtqiYs51+kEna/5peD0kZqAL1syYCH61f9gxmAFidIJz42IKcRhWMkw==" crossorigin></script>
 
   <script>
     /** Helper functions to handle SQL execution and output */
@@ -293,7 +293,7 @@ LIMIT 25</textarea>
 
     /** Globals related to SQL.js */
     const sqlPromise = initSqlJs({
-      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.12.0/dist/${file}`
+      locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.13.0/dist/${file}`
     });
     let db;
 
