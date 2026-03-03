@@ -6,6 +6,8 @@ Minimal [Google Apps Script (GAS)](https://developers.google.com/apps-script) pr
 
 [Click here to create a copy of the demo Google Sheet (the required GAS code will also be copied)](https://docs.google.com/spreadsheets/d/1pY-0oDh4pI8NffZQwN-AkpfJdot7bmlM9nky7w150UY/copy).
 
+Code repository mirrors: [GitHub](https://github.com/ardislu/sheets-db), [Codeberg](https://codeberg.org/ardislu/sheets-db), [git.ardis.lu](https://git.ardis.lu/sheets-db)
+
 # Requirements
 - A Google Sheet to attach this Google Apps Script project to
 
