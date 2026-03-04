@@ -4,7 +4,7 @@
 <head>
   <base target="_top">
   <link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
-  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.wasm" as="fetch" crossorigin>
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/sql.js@1.14.1/dist/sql-wasm.wasm" as="fetch" crossorigin>
   <style>
     body {
       height: 100%;
@@ -49,7 +49,7 @@
 
   <p class="bottom"><a href="https://github.com/ardislu/sheets-db" target="_blank">https://github.com/ardislu/sheets-db</a></p>
 
-  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/sql-wasm.js" integrity="sha512-VMLW0mP2rU+wOnv4t3gPnWPm1qg4s48y5cC4oPmsJa1/ccEXRCawOG8HZiqLVm7ugmxg40fQsiYwqmKSkF1zXQ==" crossorigin></script>
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.14.1/dist/sql-wasm.js" integrity="sha512-2IoSJJA0b2lrfqW2li6S4Idc0LKs/jNq7A1Os7lW9LOMsRzDWXDScq6KYce8HdZwxSu1aElZaBdQV9dKJkemlg==" crossorigin></script>
   <script>
     // Globals for SQLite which will be overwritten later
     let SQL; // the sql.js instance
@@ -132,7 +132,7 @@
     // Initialize sql.js
     (async () => {
       // WARNING: The following line will break if you try to use string interpolation (i.e. strings with backticks)
-      SQL = await initSqlJs({ locateFile: file => 'https://cdn.jsdelivr.net/npm/sql.js@1.14.0/dist/' + file });
+      SQL = await initSqlJs({ locateFile: file => 'https://cdn.jsdelivr.net/npm/sql.js@1.14.1/dist/' + file });
       db = new SQL.Database();
 
       setState('loaded');
