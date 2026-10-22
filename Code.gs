@@ -7,9 +7,9 @@
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
 
-  ui.createMenu('🔥 sheets-db')
-    .addItem('❓ Help', 'showHelp')
-    .addItem('🟢 Start', 'showSidebar')
+  ui.createMenu('sheets-db')
+    .addItem('Help', 'showHelp')
+    .addItem('Start', 'showSidebar')
     .addToUi();
 }
 
@@ -20,7 +20,7 @@ function showHelp() {
 
   USAGE:
   - Edit the data on this workbook like you would on any other Google Sheet, noting KEY ASSUMPTIONS below.
-  - When ready, press the "🟢 Start" button to generate a SQLite database from the data on this workbook!
+  - When ready, press the "Start" button to generate a SQLite database from the data on this workbook!
 
   KEY ASSUMPTIONS: 
   - Each tab in this workbook is a data table
@@ -35,7 +35,7 @@ function showHelp() {
 
 function showSidebar() {
   const ui = SpreadsheetApp.getUi();
-  const html = HtmlService.createHtmlOutputFromFile('sidebar').setTitle('🔥 sheets-db');
+  const html = HtmlService.createHtmlOutputFromFile('sidebar').setTitle('sheets-db');
   ui.showSidebar(html);
 }
 
